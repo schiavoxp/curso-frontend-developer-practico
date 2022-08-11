@@ -2,10 +2,12 @@ const menuEmail = document.querySelector('.navbar-email');
 const desktopMenu = document.querySelector('.desktop-menu');
 const mobileMenuIcon = document.querySelector('.menu');
 const mobileMenu = document.querySelector('.mobile-menu');
-const cartMenu = document.querySelector('.product-detail')
-const cartMenuIcon = document.querySelector('.navbar-shopping-cart')
-const cartMenuBack = document.querySelector('.shopping-cart__arrow')
-const cardsContainer = document.querySelector('.cards-container')
+const cartMenu = document.querySelector('#shoppingCartContainer');
+const cartMenuIcon = document.querySelector('.navbar-shopping-cart');
+const cartMenuBack = document.querySelector('.shopping-cart__arrow');
+const cardsContainer = document.querySelector('.cards-container');
+const productDetail = document.querySelector('#productDetail');
+
 
 menuEmail.addEventListener('click', toggleDesktopMenu);
 mobileMenuIcon.addEventListener('click', toggleMobileMenu);
@@ -27,23 +29,37 @@ function closeMobileMenu () {
     if (!mobileMenu.classList.contains('inactive')) {
         mobileMenu.classList.add('inactive');
     }
-
+}
+function closeProductDetail () {
+    if (!productDetail.classList.contains('inactive')) {
+        productDetail.classList.add('inactive');
+    }
 }
 
 function toggleDesktopMenu () {
     desktopMenu.classList.toggle('inactive');
     closeCartMenu();
+    closeProductDetail();
 }
 
 function toggleMobileMenu () {
     mobileMenu.classList.toggle('inactive');
     closeCartMenu();
+    closeProductDetail();
 }
 
 function toggleCartMenu () {
     cartMenu.classList.toggle('inactive');
     closeDesktopMenu();
     closeMobileMenu();
+    closeProductDetail();
+}
+
+function toggleProductDetail () {
+    productDetail.classList.toggle('inactive');
+    closeDesktopMenu();
+    closeMobileMenu();
+    closeCartMenu();
 }
 
 function renderProducts (array) {
@@ -95,3 +111,8 @@ productList.push({
 })
 
 renderProducts(productList);
+const productCards = document.querySelectorAll('.product-card');
+for (product of productCards) {
+    product.addEventListener('click', toggleProductDetail);
+}
+
